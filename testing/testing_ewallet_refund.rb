@@ -31,7 +31,7 @@ result = client.request_access_token
 access_token = result["accessToken"]
 
 # STEP 3: Build Body
-builder = EwalletRefundBuilder.new
+builder = NicepayRuby::EwalletSnapBuilder.new
 request_body = builder.set_ewallet_refund(
   merchant_id: "NORMALTEST",
   sub_merchant_id: "",
@@ -47,7 +47,7 @@ request_body = builder.set_ewallet_refund(
 
 # STEP 4: Send Request
 endpoints = ApiEndpoints.new
-service = APIService.new(
+service = ServiceSnap.new(
   client_id: client_id,
   client_secret: client_secret,
   channel_id: channel_id,

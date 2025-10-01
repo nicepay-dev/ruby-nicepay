@@ -45,7 +45,7 @@ request_body = cancel_builder.set_virtual_account_cancel(
 
 # STEP 4: Call Cancel VA via APIService (DELETE)
 endpoints = ApiEndpoints.new
-service = APIService.new(
+service = ServiceSnap.new(
   client_id: client_id,
   client_secret: client_secret,
   channel_id: channel_id,

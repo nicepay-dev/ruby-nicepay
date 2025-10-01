@@ -1,13 +1,14 @@
-require_relative 'nicepay_credential'
+
 require 'openssl'
 require 'base64'
 require 'json'
 require 'digest'
 
+module NicepayRuby
 class SignatureGeneratorUtils
   def initialize
-    @client_id = NicepayCredential.client_id
-    @private_key = OpenSSL::PKey::RSA.new(NicepayCredential.private_key)
+    @client_id = NicepayRuby.configuration.client_id
+    @private_key = OpenSSL::PKey::RSA.new(NicepayRuby.configuration.private_key)
   end
 
     def self.generate_string_to_sign(client_id, timestamp)
@@ -92,4 +93,9 @@ class SignatureGeneratorUtils
     Digest::SHA256.hexdigest(minified)
   end
 
+  def self.encrypt(value)
+    Digest::SHA256.hexdigest(value)
+  end
+
+end
 end
