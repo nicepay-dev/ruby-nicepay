@@ -7,12 +7,12 @@ require 'json'
 #   end
 # === CONFIGURATION ===
 NicepayRuby.configure do |config|
-  config.client_id     = "NORMALTEST"
-  config.private_key   = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAInJe1G22R2fMchIE6BjtYRqyMj6lurP/zq6vy79WaiGKt0Fxs4q3Ab4ifmOXd97ynS5f0JRfIqakXDcV/e2rx9bFdsS2HORY7o5At7D5E3tkyNM9smI/7dk8d3O0fyeZyrmPMySghzgkR3oMEDW1TCD5q63Hh/oq0LKZ/4Jjcb9AgMBAAECgYA4Boz2NPsjaE+9uFECrohoR2NNFVe4Msr8/mIuoSWLuMJFDMxBmHvO+dBggNr6vEMeIy7zsF6LnT32PiImv0mFRY5fRD5iLAAlIdh8ux9NXDIHgyera/PW4nyMaz2uC67MRm7uhCTKfDAJK7LXqrNVDlIBFdweH5uzmrPBn77foQJBAMPCnCzR9vIfqbk7gQaA0hVnXL3qBQPMmHaeIk0BMAfXTVq37PUfryo+80XXgEP1mN/e7f10GDUPFiVw6Wfwz38CQQC0L+xoxraftGnwFcVN1cK/MwqGS+DYNXnddo7Hu3+RShUjCz5E5NzVWH5yHu0E0Zt3sdYD2t7u7HSr9wn96OeDAkEApzB6eb0JD1kDd3PeilNTGXyhtIE9rzT5sbT0zpeJEelL44LaGa/pxkblNm0K2v/ShMC8uY6Bbi9oVqnMbj04uQJAJDIgTmfkla5bPZRR/zG6nkf1jEa/0w7i/R7szaiXlqsIFfMTPimvRtgxBmG6ASbOETxTHpEgCWTMhyLoCe54WwJATmPDSXk4APUQNvX5rr5OSfGWEOo67cKBvp5Wst+tpvc6AbIJeiRFlKF4fXYTb6HtiuulgwQNePuvlzlt2Q8hqQ=="
-  config.client_secret = "1af9014925cab04606b2e77a7536cb0d5c51353924a966e503953e010234108a"
+  config.client_id     = ""
+  config.private_key   = ""
+  config.client_secret = ""
   config.channel_id    = "123456"
-  config.partner_id    = "NORMALTEST"
-  config.is_production = false
+  config.partner_id    = ""
+  config.is_production = true
   config.is_cloud_server = false
 end
 
@@ -46,7 +46,7 @@ request_body = body_builder.set_virtual_account_snap(
   trx_id: trx_id,
   value: "10000.00",
   currency: "IDR",
-  bank_cd: "CENA",
+  bank_cd: "BDKI",
   goods_nm: "Ruby Test Item",
   db_process_url: "https://nicepay.co.id/"
 ).build

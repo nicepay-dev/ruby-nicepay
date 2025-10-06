@@ -3,8 +3,8 @@ require "json"
 
 # ✅ Build payload
 NicepayRuby.configure do |config|
-  config.client_id       = "IONPAYTEST"  # iMid
-  config.merchant_key    = "33F49GnCMS1mFYlGXisbUDzVf2ATWCl9k3R++d5hDd3Frmuos/XLx8XhXpe+LDYAbpGKZYSwtlyyLOtS/8aD7A=="  # Merchant Key dari Nicepay
+  config.client_id       = ""  
+  config.merchant_key    = ""  
   config.is_production = false
   config.is_cloud_server = false
 end
@@ -26,49 +26,62 @@ token_builder = NicepayRuby::MerchantTokenGenerate.new
 
 merchant_token = token_builder.build_merchant_token
 # === STEP 2: Build Body ===
-builderCC = NicepayRuby::CCRegistrationBuilder.new
-request_body = builderCC.set_cc_regist(
- i_mid: client_id,
-  time_stamp: timestamp,
-  pay_method: "01", # QRIS
+builderCC = NicepayRuby::RedirectRegistrationBuilder.new
+request_body = builderCC.set_regist_redirect_v2(
+ time_stamp: timestamp,
+  i_mid: client_id,
+  pay_method: "02", # VA
+  bank_cd: "",
   currency: "IDR",
   amt: amount,
   reference_no: reference_no,
-  goods_nm: "Ruby Test CC",
   merchant_token: merchant_token,
-  instmnt_type: "1",
-  instmnt_mon: "1",
-  recurr_opt: "",
-  billing_nm: "John Doe",
-  billing_phone: "08123456789",
-  billing_email: "john@example.com",
-  billing_addr: "Jl. Sudirman No.1",
-  billing_city: "Jakarta",
-  billing_state: "DKI",
-  billing_post_cd: "12345",
-  billing_country: "ID",
-  call_back_url: "https://www.nicepay.co.id/IONPAY_CLIENT/paymentResult.jsp",
-  db_process_url: "https://merchant.com/callback",
+  call_back_url: "https://webhook.site/xxx",
+  db_process_url: "https://webhook.site/xxx",
+  goods_nm: "Goods",
+  mitra_cd: "",
+  vacct_valid_dt: "20231130",
+  vacct_valid_tm: "235959",
+  description: "Testing API by Sibedul",
+  billing_nm: "Hantu Kesorean",
+  billing_phone: "081288998899",
+  billing_email: "abdul@example.com",
+  billing_addr: "Jln. Raya Kasablanka Kav.88",
+  billing_city: "South Jakarta",
+  billing_state: "DKI Jakarta",
+  billing_post_cd: "12800",
+  billing_country: "Indonesia",
+  user_ip: "127.0.0.1",
   cart_data: {
     count: "1",
     item: [
       {
         goods_id: "BB12345678",
-        goods_detail: "BB12345678",
-        goods_name: "Pasar Modern",
+        goods_detail: "BB123456",
+        goods_name: "iPhone5S",
         goods_amt: amount,
-        goods_type: "Sembako",
+        goods_type: "Smartphone",
         goods_url: "http://merchant.com/cellphones/iphone5s_64g",
         goods_quantity: "1",
         goods_sellers_id: "SEL123",
-        goods_sellers_name: "Sellers 1"
+        goods_sellers_name: "Sellers1"
       }
     ]
   }.to_json,
-  description: "testing CC ruby",
-  user_ip: "127.0.0.1",
-  user_agent: "Mozilla/5.0",
-  user_language: "en"
+  delivery_nm: "Hantu Kesorean",
+  delivery_phone: "081288998899",
+  delivery_addr: "Jln. Raya Kasablanka Kav.88",
+  delivery_city: "South Jakarta",
+  delivery_state: "DKI Jakarta",
+  delivery_post_cd: "12800",
+  delivery_country: "Indonesia",
+  instmnt_type: "",
+  instmnt_mon: "",
+  recurr_opt: "",
+  payment_exp_dt:"",
+  payment_exp_tm:"",
+  shop_id:""
+
 ).build
 
 puts "📦 Request Regist: #{request_body.to_json}"
@@ -84,5 +97,5 @@ service = NicepayRuby::ServiceApi.new(
 )
 
 # ✅ Call registration API
-result = service.send_post(api_endpoints.inquiry_v2, request_body)
+result = service.send_post(api_endpoints.regist_redirect_v2, request_body)
 puts "✅ Result: #{result}"

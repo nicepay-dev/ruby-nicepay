@@ -5,7 +5,7 @@ require_relative "nicepay_ruby/Utils/accessToken"
 require_relative "nicepay_ruby/Utils/merchantToken"
 require_relative "nicepay_ruby/Utils/nicepayConstant"
 require_relative "nicepay_ruby/Utils/serviceUtils"
-require_relative "nicepay_ruby/builder"
+require_relative "builder_file"
 
 require_relative "nicepay_ruby/Builder/SNAP/VA"
 require_relative "nicepay_ruby/Builder/SNAP/Ewallet"
@@ -19,6 +19,7 @@ require_relative "nicepay_ruby/Builder/V2/Payout"
 require_relative "nicepay_ruby/Builder/V2/CC"
 require_relative "nicepay_ruby/Builder/V2/Inquiry"
 require_relative "nicepay_ruby/Builder/V2/Cancel"
+require_relative "nicepay_ruby/Builder/V2/Redirect"
 
 
 module NicepayRuby

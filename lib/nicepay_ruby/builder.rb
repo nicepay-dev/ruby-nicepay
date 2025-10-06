@@ -1,1 +1,0 @@
-Dir[File.join(__dir__, "builder", "*.rb")].each { |file| require file }
