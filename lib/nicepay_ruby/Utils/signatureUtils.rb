@@ -74,7 +74,6 @@ class SignatureGeneratorUtils
 
   # Optional: Verify signature (public key based)
   def self.verify_sha256_rsa(string_to_sign, public_key_base64, signature_base64)
-    begin
       public_key_der = Base64.decode64(public_key_base64)
       public_key = OpenSSL::PKey::RSA.new(public_key_der)
       signature = Base64.decode64(signature_base64)
@@ -85,7 +84,7 @@ class SignatureGeneratorUtils
     rescue => e
       puts "Error verifying signature: #{e.message}"
       false
-    end
+  
   end
 
   def sha256_hex_minified(json_body)
