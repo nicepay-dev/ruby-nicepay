@@ -1,13 +1,14 @@
-require_relative 'nicepay_credential'
+
 require 'openssl'
 require 'base64'
 require 'json'
 require 'digest'
 
+module NicepayRuby
 class SignatureGeneratorUtils
   def initialize
-    @client_id = NicepayCredential.client_id
-    @private_key = OpenSSL::PKey::RSA.new(NicepayCredential.private_key)
+    @client_id = NicepayRuby.configuration.client_id
+    @private_key = OpenSSL::PKey::RSA.new(NicepayRuby.configuration.private_key)
   end
 
     def self.generate_string_to_sign(client_id, timestamp)
@@ -73,7 +74,6 @@ class SignatureGeneratorUtils
 
   # Optional: Verify signature (public key based)
   def self.verify_sha256_rsa(string_to_sign, public_key_base64, signature_base64)
-    begin
       public_key_der = Base64.decode64(public_key_base64)
       public_key = OpenSSL::PKey::RSA.new(public_key_der)
       signature = Base64.decode64(signature_base64)
@@ -84,7 +84,7 @@ class SignatureGeneratorUtils
     rescue => e
       puts "Error verifying signature: #{e.message}"
       false
-    end
+  
   end
 
   def sha256_hex_minified(json_body)
@@ -92,4 +92,9 @@ class SignatureGeneratorUtils
     Digest::SHA256.hexdigest(minified)
   end
 
+  def self.encrypt(value)
+    Digest::SHA256.hexdigest(value)
+  end
+
+end
 end

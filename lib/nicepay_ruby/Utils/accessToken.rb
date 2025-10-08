@@ -1,10 +1,11 @@
-require_relative 'nicepay_credential'
-require_relative 'signature_generator'
-require_relative 'api_endpoints'
+
+require_relative 'signatureUtils'
+require_relative 'nicepayConstant'
 require 'net/http'
 require 'uri'
 require 'json'
 
+module NicepayRuby
 class AccessTokenClient
   # def initialize(is_production: false)
   #   @client_id = NicepayCredential.client_id
@@ -14,10 +15,18 @@ class AccessTokenClient
   #          'https://dev.nicepay.co.id/nicepay/v1.0/access-token/b2b'
   # end
 
-  def initialize(client_id:, private_key:, is_production:, is_cloud_server:)
-    @client_id = client_id
-    @private_key = private_key
-    NICEPayBuilder.set_environment(production: is_production, cloud_server: is_cloud_server)
+  def initialize(client_id: nil, private_key: nil, is_production: nil, is_cloud_server: nil)
+      config = NicepayRuby.configuration
+
+      @client_id   = client_id   || config.client_id
+      @private_key = private_key || config.private_key
+      @is_production  = is_production.nil?  ? config.is_production  : is_production
+      @is_cloud_server = is_cloud_server.nil? ? config.is_cloud_server : is_cloud_server
+
+      Config.set_environment(
+      production: @is_production,
+      cloud_server: @is_cloud_server
+      )
   end
 
   def request_access_token
@@ -45,8 +54,10 @@ class AccessTokenClient
   end
 
   
-  def build_full_url(endpoint)
-    base_url = NICEPayBuilder.get_base_url
-    URI.join(base_url, endpoint).to_s
+  def build_full_url(path)
+  base_url = NicepayRuby::Config.base_url
+  "#{base_url}#{path}"
   end
+
+end
 end
