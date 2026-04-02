@@ -21,6 +21,18 @@ require_relative "nicepay_ruby/Builder/V2/Inquiry"
 require_relative "nicepay_ruby/Builder/V2/Cancel"
 require_relative "nicepay_ruby/Builder/V2/Redirect"
 
+# V1 Professional
+require_relative "nicepay_ruby/Builder/V1/Registration"
+require_relative "nicepay_ruby/Builder/V1/Payment"
+require_relative "nicepay_ruby/Builder/V1/Inquiry"
+require_relative "nicepay_ruby/Builder/V1/Cancel"
+require_relative "nicepay_ruby/Builder/V1/VA"
+require_relative "nicepay_ruby/Builder/V1/Ewallet"
+
+require_relative "nicepay_ruby/Builder/V1/QRIS"
+require_relative "nicepay_ruby/Builder/V1/CVS"
+require_relative "nicepay_ruby/Builder/V1/CardToken"
+
 
 module NicepayRuby
   class << self

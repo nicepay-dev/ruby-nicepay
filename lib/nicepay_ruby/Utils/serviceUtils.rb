@@ -1,3 +1,4 @@
+
 require 'net/http'
 require 'uri'
 require 'json'
@@ -18,6 +19,30 @@ module NicepayRuby
         production: is_production,
         cloud_server: is_cloud_server
       )
+    end
+
+
+      # ==============================
+    # V1: Simple POST x-www-form-urlencoded
+    # ==============================
+    def send_post_form(endpoint, form_data)
+      full_url = build_url(endpoint)
+      puts "[DEBUG][V1 POST FORM] endpoint: #{full_url}"
+
+      begin
+        uri = URI(full_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == "https"
+
+        request = Net::HTTP::Post.new(uri.request_uri)
+        request.set_form_data(form_data)
+
+        response = http.request(request)
+        body = response.body
+        response.is_a?(Net::HTTPSuccess) ? body : "Error: #{response.code} - #{response.message}\nResponse: #{body}"
+      rescue => e
+        "Exception occurred: #{e.message}"
+      end
     end
 
     # ==============================
@@ -47,6 +72,7 @@ module NicepayRuby
         "Exception occurred: #{e.message}"
       end
     end
+    
 
     # ==============================
     # SNAP (secure request w/ signature)

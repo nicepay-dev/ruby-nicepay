@@ -7,7 +7,7 @@ require 'json'
 #   end
 # === CONFIGURATION ===
 NicepayRuby.configure do |config|
-  config.client_id     = ""
+  config.client_id     = "TNICEPO071"
   config.private_key   = ""
   config.client_secret = ""
   config.channel_id    = "123456"

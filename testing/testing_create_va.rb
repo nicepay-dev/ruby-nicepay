@@ -7,12 +7,12 @@ require 'json'
 #   end
 # === CONFIGURATION ===
 NicepayRuby.configure do |config|
-  config.client_id     = ""
+  config.client_id     = "SERBAM0001"
   config.private_key   = ""
-  config.client_secret = ""
-  config.channel_id    = "123456"
+  config.client_secret = "qr7fBNIqMK25kyZktzD9ukymix3AU/VA4EeKLILWEOA5shqYC+4Lkk0zIfbiXNBZBP8Be40p9TwiFSLaikK92A=="
+  config.channel_id    = "SERBAM000101"
   config.partner_id    = ""
-  config.is_production = true
+  config.is_production = false
   config.is_cloud_server = false
 end
 
@@ -29,12 +29,12 @@ trx_id      = "trxId" + NicepayRuby::SignatureGeneratorUtils.generate_random_num
 
 
 # === STEP 1: Generate Signature ===
-signature = NicepayRuby::SignatureGeneratorUtils.generate_signature(private_key, client_id, timestamp)
+# signature = NicepayRuby::SignatureGeneratorUtils.generate_signature(private_key, client_id, timestamp)
 
 # === STEP 2: Get Access Token ===
-client = NicepayRuby::AccessTokenClient.new
-result = client.request_access_token
-access_token = result["accessToken"]
+# client = NicepayRuby::AccessTokenClient.new
+# result = client.request_access_token
+access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTRVJCQU0wMDAxIiwiaXNzIjoiTklDRVBBWSIsIm5hbWUiOiJmVnhuQWoxSldQIiwiZXhwIjoiMjAyNi0wMy0zMFQwNzowMzo1NVoifQ==.m50cwBEJVo3lzHtCIrSqpZ2paJB_gceEJ2_SoEXF5FM="
 
 
 # STEP 3: Build Body VA
@@ -46,7 +46,7 @@ request_body = body_builder.set_virtual_account_snap(
   trx_id: trx_id,
   value: "10000.00",
   currency: "IDR",
-  bank_cd: "BDKI",
+  bank_cd: "BNIN",
   goods_nm: "Ruby Test Item",
   db_process_url: "https://nicepay.co.id/"
 ).build

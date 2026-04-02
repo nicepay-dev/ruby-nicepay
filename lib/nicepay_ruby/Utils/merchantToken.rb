@@ -1,3 +1,4 @@
+
 # lib/nicepay_ruby/merchant_token_builder.rb
 require_relative 'signatureUtils'
 require_relative 'nicepayConstant'
@@ -59,5 +60,12 @@ module NicepayRuby
       NicepayRuby::SignatureGeneratorUtils.encrypt(raw)
 
     end
+
+        # V1 merchant token: SHA256(iMid+referenceNo+amt+merchantKey)
+    def build_v1_merchant_token(i_mid:, reference_no:, amt:, merchant_key:)
+      raw = "#{i_mid}#{reference_no}#{amt}#{merchant_key}"
+      NicepayRuby::SignatureGeneratorUtils.encrypt(raw)
+    end
+
   end
 end

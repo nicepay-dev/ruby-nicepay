@@ -38,7 +38,7 @@ module NicepayRuby
   end
 
   class ApiEndpoints
-      attr_reader :create_va, :inquiry_va, :delete_va,
+            attr_reader :create_va, :inquiry_va, :delete_va,
               :payment_ewallet, :status_ewallet, :refund_ewallet,
               :access_token,
               :generate_qris, :status_qris, :refund_qris,
@@ -47,7 +47,10 @@ module NicepayRuby
               :regist_v2, :inquiry_v2, :cancel_v2,
               :regist_payout_v2, :inquiry_payout_v2, :reject_payout_v2,
               :approve_payout_v2, :balance_inquiry_v2,
-              :regist_redirect_v2
+              :regist_redirect_v2,
+              :registration_v1, :payment_v1, :inquiry_v1, :cancel_v1,
+              :ewallet_regist_v1, :regist_v1, :card_token_v1
+
 
     def initialize
       # VA
@@ -88,6 +91,15 @@ module NicepayRuby
 
       # Redirect
       @regist_redirect_v2  = "nicepay/redirect/v2/registration"
+
+      # V1 Professional
+      @registration_v1 = "nicepay/api/orderRegist.do"
+      @payment_v1      = "nicepay/api/onePass.do"
+      @inquiry_v1      = "nicepay/api/onePassStatus.do"
+      @cancel_v1       = "nicepay/api/onePassAllCancel.do"
+      @regist_v1         = "nicepay/api/onePass.do"
+      @ewallet_regist_v1 = "nicepay/api/ewalletTrans.do"
+      @card_token_v1     = "nicepay/api/onePassToken.do"
     end
 
     # helper buat gabung base_url + endpoint
